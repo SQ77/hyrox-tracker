@@ -152,8 +152,8 @@ function createMap(currentStageIndex) {
 
         div.addEventListener("mousemove", (e) => {
             const rect = container.getBoundingClientRect();
-            tooltip.style.top = `${e.clientY - rect.top + 10}px`;
-            tooltip.style.left = `${e.clientX - rect.left + 10}px`;
+            tooltip.style.top = `${e.clientY - rect.top + 20}px`;
+            tooltip.style.left = `${e.clientX - rect.left + 20}px`;
         });
 
         div.addEventListener("mouseleave", () => {
