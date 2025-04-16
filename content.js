@@ -19,15 +19,25 @@ const stages = [
     "Finish",
 ];
 
+const completed = Array(stages.length).fill(0);
+
 const stationStageMap = {
     0: "station-start",
+    1: "station-running1",
     2: "station-skierg",
+    3: "station-running1",
     4: "station-sled-push",
+    5: "station-running1",
     6: "station-sled-pull",
+    7: "station-running1",
     8: "station-burpee-jumps",
+    9: "station-running1",
     10: "station-row",
+    11: "station-running1",
     12: "station-farmers-carry",
+    13: "station-running1",
     14: "station-sandbag-lunges",
+    15: "station-running1",
     16: "station-wallballs",
     17: "station-end",
 };
@@ -47,6 +57,9 @@ function getCurrentStageIndex() {
     }
 
     if (wallBallsTime && wallBallsTime !== "-") {
+        for (let i = 0; i < completed.length - 1; i++) {
+            completed[i] = 1;
+        }
         return 17; // Finish
     }
 
@@ -55,9 +68,10 @@ function getCurrentStageIndex() {
         if (!time || time === "-") {
             return i;
         }
+        completed[i] = 1;
     }
 
-    return stages.length; 
+    return stages.length;
 }
 
 function createMap(currentStageIndex) {
@@ -115,12 +129,17 @@ function createMap(currentStageIndex) {
         const width = style.right - style.left;
         const height = style.bottom - style.top;
 
+        const stageIndex = Object.values(stationStageMap).indexOf(id);
+
         Object.assign(div.style, {
             top: `${style.top}px`,
             left: `${style.left}px`,
             width: `${width}px`,
             height: `${height}px`,
             position: "absolute",
+            background: completed[stageIndex]
+                ? "rgba(0, 255, 0, 0.3)"
+                : "transparent",
         });
         container.appendChild(div);
     }
