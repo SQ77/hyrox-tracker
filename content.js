@@ -85,6 +85,11 @@ function createMap(currentStageIndex) {
     map.className = "hyrox-map";
     container.appendChild(map);
 
+    const tooltip = document.createElement("div");
+    tooltip.className = "station-tooltip";
+    tooltip.style.display = "none";
+    container.appendChild(tooltip);
+
     const SHIFT_X = 15;
 
     const stations = {
@@ -130,6 +135,30 @@ function createMap(currentStageIndex) {
         const height = style.bottom - style.top;
 
         const stageIndex = Object.values(stationStageMap).indexOf(id);
+
+        const stageLabel = stages[stageIndex];
+        const time = document.querySelectorAll("th.desc")
+            ? [...document.querySelectorAll("th.desc")]
+                  .find((el) => el.textContent.trim() === stageLabel)
+                  ?.nextElementSibling?.textContent?.trim()
+            : null;
+
+        div.addEventListener("mouseenter", (e) => {
+            if (time && time !== "-") {
+                tooltip.textContent = `${stageLabel}: ${time}`;
+                tooltip.style.display = "block";
+            }
+        });
+
+        div.addEventListener("mousemove", (e) => {
+            const rect = container.getBoundingClientRect();
+            tooltip.style.top = `${e.clientY - rect.top + 10}px`;
+            tooltip.style.left = `${e.clientX - rect.left + 10}px`;
+        });
+
+        div.addEventListener("mouseleave", () => {
+            tooltip.style.display = "none";
+        });
 
         Object.assign(div.style, {
             top: `${style.top}px`,

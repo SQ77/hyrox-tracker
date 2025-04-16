@@ -13,9 +13,22 @@
     color: red;
     border: 3px solid;
     border-radius: 6px;
-    pointer-events: none;
+    pointer-events: auto;
     transition: all 0.3s ease;
     background-color: transparent;
+}
+
+.station-tooltip {
+    position: absolute;
+    background: rgba(0, 0, 0, 0.75);
+    color: #fff;
+    padding: 4px 8px;
+    border-radius: 4px;
+    pointer-events: none;
+    font-size: 12px;
+    white-space: nowrap;
+    z-index: 9999;
+    display: none;
 }
 
 .athlete-marker {
