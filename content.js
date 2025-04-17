@@ -91,8 +91,8 @@ function animateAlongPath(pathEl, markerEl, retries = 5) {
     }
 
     const pathLength = pathEl.getTotalLength();
-    const duration = 60000; // 1 minute per lap in milliseconds
-    const totalDuration = duration * 2; // Two laps around the track
+    const duration = 90000; // 1 minute 30s per lap in milliseconds
+    const totalDuration = duration * 3; // Three laps around the track
 
     let current = 0;
     let startTime = null;
@@ -101,7 +101,7 @@ function animateAlongPath(pathEl, markerEl, retries = 5) {
         if (!startTime) startTime = timestamp;
 
         const elapsed = timestamp - startTime;
-        const progress = (elapsed % totalDuration) / totalDuration; // Progress normalized to 2 laps
+        const progress = (elapsed % totalDuration) / totalDuration; // Progress normalized
 
         current = progress * pathLength; // Update current position based on progress
 
@@ -110,7 +110,7 @@ function animateAlongPath(pathEl, markerEl, retries = 5) {
         markerEl.style.top = `${y}px`;
 
         if (elapsed < totalDuration) {
-            requestAnimationFrame(step); // Continue animating until both laps are completed
+            requestAnimationFrame(step); 
         }
     }
 
