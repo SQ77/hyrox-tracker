@@ -7,7 +7,7 @@
         {
             "matches": ["https://results.hyrox.com/season-*/**"],
             "include_globs": ["*content=detail*"],
-            "js": ["content.js"],
+            "js": ["dist/bundle.js"],
             "css": ["styles.css"]
         }
     ],
