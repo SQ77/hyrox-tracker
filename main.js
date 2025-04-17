@@ -5,6 +5,9 @@ const currentRaceId = "paris-April-2025";
 const { mapPath, imageWidth, imageHeight, trackSvg, stations } =
     raceConfigs[currentRaceId];
 
+let markerEl = null;
+let currentMarkerStageIndex = null;
+
 function getCurrentStageIndex() {
     const getTime = (label) => {
         return [...document.querySelectorAll("th.desc")]
@@ -170,40 +173,41 @@ function createMap(currentStageIndex) {
         container.appendChild(div);
     }
 
-    const currentStationName = stationStageMap[currentStageIndex];
+    markerEl = document.createElement("div");
+    markerEl.className = "athlete-marker";
+    container.appendChild(markerEl);
+
+    currentMarkerStageIndex = currentStageIndex;
+    updateMarker();
+
+    return container;
+}
+
+function updateMarker() {
+    const newStageIndex = getCurrentStageIndex();
+
+    currentMarkerStageIndex = newStageIndex;
+
+    const marker = markerEl;
+    if (!marker) return;
+
+    const currentStationName = stationStageMap[newStageIndex];
+
     // Athlete is running
     if (currentStationName && currentStationName.includes("running")) {
-        const marker = document.createElement("div");
-        marker.className = "athlete-marker";
-        container.appendChild(marker);
-
-        requestAnimationFrame(() => {
-            const pathEl = document.getElementById("track-path");
-            if (pathEl) {
-                animateAlongPath(pathEl, marker);
-            } else {
-                console.warn("SVG path not found");
-            }
-        });
+        marker.style.display = "block";
+        animateAlongPath(document.getElementById("track-path"), marker);
     } else if (currentStationName && stations[currentStationName]) {
         // Athlete is at a station
         const { top, left, bottom, right } = stations[currentStationName];
-
         const centerY = top + (bottom - top) / 2;
         const centerX = left + (right - left) / 2;
-
-        // Add athlete marker at center of current station
-        const marker = document.createElement("div");
-        marker.className = "athlete-marker";
-        container.appendChild(marker);
-
-        Object.assign(marker.style, {
-            top: `${centerY}px`,
-            left: `${centerX}px`,
-        });
+        marker.style.top = `${centerY}px`;
+        marker.style.left = `${centerX}px`;
+        marker.style.display = "block";
+    } else {
+        marker.style.display = "none";
     }
-
-    return container;
 }
 
 window.addEventListener("load", () => {
@@ -211,4 +215,6 @@ window.addEventListener("load", () => {
     const currentIndex = getCurrentStageIndex();
     const map = createMap(currentIndex);
     detail.insertBefore(map, detail.firstChild);
+
+    setInterval(updateMarker, 10000);
 });
