@@ -25,19 +25,19 @@ const stationStageMap = {
     0: "station-start",
     1: "station-running1",
     2: "station-skierg",
-    3: "station-running1",
+    3: "station-running2",
     4: "station-sled-push",
-    5: "station-running1",
+    5: "station-running3",
     6: "station-sled-pull",
-    7: "station-running1",
+    7: "station-running4",
     8: "station-burpee-jumps",
-    9: "station-running1",
+    9: "station-running5",
     10: "station-row",
-    11: "station-running1",
+    11: "station-running6",
     12: "station-farmers-carry",
-    13: "station-running1",
+    13: "station-running7",
     14: "station-sandbag-lunges",
-    15: "station-running1",
+    15: "station-running8",
     16: "station-wallballs",
     17: "station-end",
 };
@@ -74,6 +74,49 @@ function getCurrentStageIndex() {
     return stages.length;
 }
 
+function animateAlongPath(pathEl, markerEl, retries = 5) {
+    if (!pathEl) {
+        if (retries > 0) {
+            requestAnimationFrame(() =>
+                animateAlongPath(
+                    document.getElementById("track-path"),
+                    markerEl,
+                    retries - 1
+                )
+            );
+        } else {
+            console.warn("Path element not found after multiple attempts");
+        }
+        return;
+    }
+
+    const pathLength = pathEl.getTotalLength();
+    const duration = 60000; // 1 minute per lap in milliseconds
+    const totalDuration = duration * 2; // Two laps around the track
+
+    let current = 0;
+    let startTime = null;
+
+    function step(timestamp) {
+        if (!startTime) startTime = timestamp;
+
+        const elapsed = timestamp - startTime;
+        const progress = (elapsed % totalDuration) / totalDuration; // Progress normalized to 2 laps
+
+        current = progress * pathLength; // Update current position based on progress
+
+        const { x, y } = pathEl.getPointAtLength(current);
+        markerEl.style.left = `${x}px`;
+        markerEl.style.top = `${y}px`;
+
+        if (elapsed < totalDuration) {
+            requestAnimationFrame(step); // Continue animating until both laps are completed
+        }
+    }
+
+    requestAnimationFrame(step);
+}
+
 function createMap(currentStageIndex) {
     const container = document.createElement("div");
     container.id = "hyrox-map-container";
@@ -84,6 +127,19 @@ function createMap(currentStageIndex) {
     map.alt = "Hyrox Cologne 2025 Map";
     map.className = "hyrox-map";
     container.appendChild(map);
+
+    container.insertAdjacentHTML(
+        "beforeend",
+        `
+        <svg id="track-overlay" class="hyrox-track-overlay" viewBox="-100 100 800 600">
+            <path id="track-path"
+                d="M 263 590 L 840 587 L 840 482 L 786 409 L 782 286 L 232 277 C 192 280 182 289 171 312 L 171 587 L 261 590 L 667 586"
+                fill="none"
+                stroke="transparent"
+                stroke-width="5"/>
+        </svg>
+        `
+    );
 
     const tooltip = document.createElement("div");
     tooltip.className = "station-tooltip";
@@ -173,21 +229,37 @@ function createMap(currentStageIndex) {
         container.appendChild(div);
     }
 
-    // Add athlete marker at center of current station
-    const currentStationId = stationStageMap[currentStageIndex];
-    if (currentStationId && stations[currentStationId]) {
-        const { top, left, bottom, right } = stations[currentStationId];
+    const currentStationName = stationStageMap[currentStageIndex];
+    // Athlete is running
+    if (currentStationName && currentStationName.includes("running")) {
+        const marker = document.createElement("div");
+        marker.className = "athlete-marker";
+        container.appendChild(marker);
+
+        requestAnimationFrame(() => {
+            const pathEl = document.getElementById("track-path");
+            if (pathEl) {
+                animateAlongPath(pathEl, marker);
+            } else {
+                console.warn("SVG path not found");
+            }
+        });
+    } else if (currentStationName && stations[currentStationName]) {
+        // Athlete is at a station
+        const { top, left, bottom, right } = stations[currentStationName];
 
         const centerY = top + (bottom - top) / 2;
         const centerX = left + (right - left) / 2;
 
+        // Add athlete marker at center of current station
         const marker = document.createElement("div");
         marker.className = "athlete-marker";
+        container.appendChild(marker);
+
         Object.assign(marker.style, {
             top: `${centerY}px`,
             left: `${centerX}px`,
         });
-        container.appendChild(marker);
     }
 
     return container;
