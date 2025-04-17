@@ -57,7 +57,7 @@ function getCurrentStageIndex() {
     }
 
     if (wallBallsTime && wallBallsTime !== "-") {
-        for (let i = 0; i < completed.length - 1; i++) {
+        for (let i = 1; i < completed.length - 1; i++) {
             completed[i] = 1;
         }
         return 17; // Finish

@@ -5,7 +5,9 @@
     "description": "Visual tracker for Hyrox races",
     "content_scripts": [
         {
-            "matches": ["https://results.hyrox.com/*"],
+            "matches": [
+                "https://results.hyrox.com/season-*/?content=detail&fpid=search&pid=search&idp=*&lang=*&event=*"
+            ],
             "js": ["content.js"],
             "css": ["styles.css"]
         }
