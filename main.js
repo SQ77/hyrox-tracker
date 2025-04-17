@@ -1,11 +1,9 @@
-import {
-    stages,
-    stationStageMap,
-    completed,
-    mapPath,
-    trackSvg,
-    stations,
-} from "./constants.js";
+import { stages, stationStageMap, completed } from "./constants.js";
+import { raceConfigs } from "./raceConfigs.js";
+
+const currentRaceId = "paris-April-2025";
+const { mapPath, imageWidth, imageHeight, trackSvg, stations } =
+    raceConfigs[currentRaceId];
 
 function getCurrentStageIndex() {
     const getTime = (label) => {
@@ -91,6 +89,10 @@ function createMap(currentStageIndex) {
     map.src = chrome.runtime.getURL(mapPath);
     map.alt = "Hyrox Map";
     map.className = "hyrox-map";
+    Object.assign(map.style, {
+        height: `${imageHeight}px`,
+        width: `${imageWidth}px`,
+    });
     container.appendChild(map);
 
     container.insertAdjacentHTML("beforeend", trackSvg);

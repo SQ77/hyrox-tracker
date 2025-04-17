@@ -13,7 +13,7 @@
     ],
     "web_accessible_resources": [
         {
-            "resources": ["cologne-April-2025.jpg"],
+            "resources": ["*.jpg", "*.png"],
             "matches": ["<all_urls>"]
         }
     ],
