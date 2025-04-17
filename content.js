@@ -152,7 +152,7 @@ function createMap(currentStageIndex) {
         "station-start": { top: 231, left: 274, bottom: 258, right: 346 },
         "station-skierg": { top: 518, left: 669, bottom: 559, right: 799 },
         "station-sled-push": { top: 489, left: 410, bottom: 565, right: 614 },
-        "station-sled-pull": { top: 381, left: 406, bottom: 466, right: 625 },
+        "station-sled-pull": { top: 383, left: 406, bottom: 466, right: 625 },
         "station-burpee-jumps": {
             top: 393,
             left: 644,
@@ -161,7 +161,7 @@ function createMap(currentStageIndex) {
         },
         "station-row": { top: 397, left: 338, bottom: 520, right: 392 },
         "station-farmers-carry": {
-            top: 385,
+            top: 387,
             left: 175,
             bottom: 564,
             right: 203,
@@ -173,7 +173,7 @@ function createMap(currentStageIndex) {
             right: 324,
         },
         "station-wallballs": { top: 172, left: 530, bottom: 232, right: 677 },
-        "station-end": { top: 145, left: 702, bottom: 216, right: 764 },
+        "station-end": { top: 147, left: 702, bottom: 216, right: 764 },
     };
 
     for (const station of Object.values(stations)) {
@@ -191,16 +191,29 @@ function createMap(currentStageIndex) {
         const height = style.bottom - style.top;
 
         const stageIndex = Object.values(stationStageMap).indexOf(id);
-
         const stageLabel = stages[stageIndex];
+
+        // Get stage-specific time for non-finish stages
         const time = document.querySelectorAll("th.desc")
             ? [...document.querySelectorAll("th.desc")]
                   .find((el) => el.textContent.trim() === stageLabel)
                   ?.nextElementSibling?.textContent?.trim()
             : null;
 
+        // Get total finish time
+        const totalTime = document
+            .querySelector("td.f-time_finish_netto.last")
+            ?.textContent?.trim();
+
         div.addEventListener("mouseenter", (e) => {
-            if (time && time !== "-") {
+            if (
+                stageLabel.toLowerCase().includes("finish") &&
+                totalTime &&
+                totalTime !== "-"
+            ) {
+                tooltip.textContent = `Total Time: ${totalTime}`;
+                tooltip.style.display = "block";
+            } else if (time && time !== "-") {
                 tooltip.textContent = `${stageLabel}: ${time}`;
                 tooltip.style.display = "block";
             }
