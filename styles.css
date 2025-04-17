@@ -19,9 +19,7 @@
 
 .station-highlight {
     position: absolute;
-    color: red;
-    border: 3px solid;
-    border-radius: 6px;
+    border: 1px solid;
     pointer-events: auto;
     transition: all 0.3s ease;
     background-color: transparent;
