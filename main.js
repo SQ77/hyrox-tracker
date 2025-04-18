@@ -18,11 +18,11 @@ function getCurrentStageIndex() {
     const running1Time = getTime("Running 1");
     const wallBallsTime = getTime("Wall Balls");
 
-    if (!running1Time || running1Time === "-") {
+    if (!running1Time || running1Time === "–") {
         return 0; // Start
     }
 
-    if (wallBallsTime && wallBallsTime !== "-") {
+    if (wallBallsTime && wallBallsTime !== "–") {
         for (let i = 1; i < completed.length - 1; i++) {
             completed[i] = 1;
         }
@@ -31,7 +31,7 @@ function getCurrentStageIndex() {
 
     for (let i = 1; i < stages.length; i++) {
         const time = getTime(stages[i]);
-        if (!time || time === "-") {
+        if (!time || time === "–") {
             return i;
         }
         completed[i] = 1;
@@ -137,14 +137,10 @@ function createMap(currentStageIndex) {
             ?.textContent?.trim();
 
         div.addEventListener("mouseenter", (e) => {
-            if (
-                stageLabel.toLowerCase().includes("finish") &&
-                totalTime &&
-                totalTime !== "-"
-            ) {
+            if (stageLabel.toLowerCase().includes("finish") && totalTime) {
                 tooltip.textContent = `Total Time: ${totalTime}`;
                 tooltip.style.display = "block";
-            } else if (time && time !== "-") {
+            } else if (time) {
                 tooltip.textContent = `${stageLabel}: ${time}`;
                 tooltip.style.display = "block";
             }
@@ -185,7 +181,6 @@ function createMap(currentStageIndex) {
 
 function updateMarker() {
     const newStageIndex = getCurrentStageIndex();
-
     currentMarkerStageIndex = newStageIndex;
 
     const marker = markerEl;
@@ -216,5 +211,10 @@ window.addEventListener("load", () => {
     const map = createMap(currentIndex);
     detail.insertBefore(map, detail.firstChild);
 
-    setInterval(updateMarker, 10000);
+    setInterval(() => {
+        const currentIndex = getCurrentStageIndex();
+        if (currentIndex % 2 === 0 || currentIndex === 17) {
+            updateMarker();
+        }
+    }, 10000);
 });
