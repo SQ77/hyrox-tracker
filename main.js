@@ -218,9 +218,10 @@ window.addEventListener("load", () => {
     detail.insertBefore(map, detail.firstChild);
 
     setInterval(() => {
+        location.reload();
         const currentIndex = getCurrentStageIndex();
         if (currentIndex % 2 === 0 || currentIndex === 17) {
             updateMarker();
         }
-    }, 10000);
+    }, 60000);
 });
