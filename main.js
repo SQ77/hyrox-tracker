@@ -223,5 +223,5 @@ window.addEventListener("load", () => {
         if (currentIndex % 2 === 0 || currentIndex === 17) {
             updateMarker();
         }
-    }, 60000);
+    }, 90000);
 });
