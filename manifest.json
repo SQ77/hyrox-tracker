@@ -14,8 +14,7 @@
     "web_accessible_resources": [
         {
             "resources": ["*.jpg", "*.png"],
-            "matches": ["<all_urls>"]
+            "matches": ["https://results.hyrox.com/season-*/**"]
         }
-    ],
-    "permissions": ["activeTab", "scripting"]
+    ]
 }
