@@ -1,4 +1,5 @@
 import { stages } from "./constants";
+import confetti from "canvas-confetti";
 
 export function createProgressLine(currentStageIndex) {
     const container = document.createElement("div");
@@ -28,6 +29,19 @@ export function createProgressLine(currentStageIndex) {
             circle.style.color = "black";
         }
 
+        if (index === 17) {
+            const confettiBtn = document.createElement("span");
+            confettiBtn.textContent = "🎉";
+            confettiBtn.style.cursor = "pointer";
+            confettiBtn.title = "Celebrate!";
+            Object.assign(confettiBtn.style, {
+                fontSize: "1.8rem",
+            });
+            confettiBtn.onclick = () => launchConfetti();
+
+            circle.appendChild(confettiBtn);
+        }
+
         item.appendChild(circle);
         item.appendChild(label);
 
@@ -36,4 +50,15 @@ export function createProgressLine(currentStageIndex) {
 
     container.appendChild(timeline);
     return container;
+}
+
+function launchConfetti() {
+    if (typeof confetti !== "function") return;
+
+    confetti({
+        particleCount: 150,
+        spread: 70,
+        colors: ["#FFFF00", "#000000", "#FFFFFF"],
+        origin: { y: 0.7 },
+    });
 }

@@ -218,7 +218,7 @@ function updateMarker() {
 window.addEventListener("load", () => {
     const detail = document.querySelector(".detail") || document.body;
     const currentIndex = getCurrentStageIndex();
-    const map = createMap(2);
+    const map = createMap(currentIndex);
     detail.insertBefore(map, detail.firstChild);
 
     setInterval(() => {
