@@ -62,3 +62,32 @@ function launchConfetti() {
         origin: { y: 0.7 },
     });
 }
+
+export function animateWave(currentIndex) {
+    const timelineItems = document.querySelectorAll(".hyrox-timeline li");
+
+    function runWave() {
+        timelineItems.forEach((item, index) => {
+            item.classList.remove("wave-animated", "fading-out");
+            void item.offsetWidth; 
+
+            if (index <= currentIndex) {
+                setTimeout(() => {
+                    item.classList.add("wave-animated");
+
+                    setTimeout(() => {
+                        item.classList.remove("wave-animated");
+                        item.classList.add("fading-out");
+
+                        setTimeout(() => {
+                            item.classList.remove("fading-out");
+                        }, 1200); // match fade out duration
+                    }, 1000); // match active duration
+                }, index * 600);
+            }
+        });
+    }
+
+    runWave(); 
+    setInterval(runWave, (currentIndex + 1) * 600 + 3000); 
+}

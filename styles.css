@@ -37,6 +37,10 @@
     display: none;
 }
 
+/* =================================== */
+/* ====== Athlete Marker Styles ====== */
+/* =================================== */
+
 .athlete-marker {
     position: absolute;
     width: 12px;
@@ -105,7 +109,7 @@
     left: 50%;
     width: 100%;
     height: 2px;
-    background-color: white;
+    background-color: #c6c6c6;
     z-index: 0;
 }
 
@@ -137,4 +141,55 @@
     white-space: normal;
     word-wrap: break-word;
     text-align: center;
+}
+
+/* ===================================================== */
+/* ====== Progress Timeline Wave Animation Styles ====== */
+/* ===================================================== */
+
+@keyframes blueWave {
+    0% {
+        border-color: #c6c6c6;
+    }
+    100% {
+        border-color: #2196f3;
+    }
+}
+
+@keyframes stationGlow {
+    0% {
+        box-shadow: 0 0 0px #2196f3;
+    }
+    100% {
+        box-shadow: 0 0 15px #2196f3;
+    }
+}
+
+@keyframes stationFadeOut {
+    0% {
+        box-shadow: 0 0 15px #2196f3;
+        border-color: #2196f3;
+    }
+    100% {
+        box-shadow: 0 0 0px #c6c6c6;
+        border-color: #c6c6c6;
+    }
+}
+
+.hyrox-timeline li.wave-animated .circle {
+    animation: blueWave 1s ease forwards, stationGlow 1s ease forwards;
+}
+
+.hyrox-timeline li.wave-animated::after {
+    background-color: #2196f3;
+    transition: background-color 1.5s ease;
+}
+
+.hyrox-timeline li.fading-out .circle {
+    animation: stationFadeOut 0.8s ease forwards;
+}
+
+.hyrox-timeline li.fading-out::after {
+    background-color: #c6c6c6;
+    transition: background-color 1.5s ease;
 }

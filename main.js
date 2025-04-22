@@ -1,6 +1,6 @@
 import { stages, stationStageMap, completed } from "./constants.js";
 import { raceConfigs } from "./raceConfigs.js";
-import { createProgressLine } from "./progressLine.js";
+import { createProgressLine, animateWave } from "./progressLine.js";
 
 const currentRaceId = "paris-April-2025";
 const { mapPath, imageWidth, imageHeight, trackSvg, stations } =
@@ -220,6 +220,7 @@ window.addEventListener("load", () => {
     const currentIndex = getCurrentStageIndex();
     const map = createMap(currentIndex);
     detail.insertBefore(map, detail.firstChild);
+    animateWave(currentIndex);
 
     setInterval(() => {
         location.reload();
