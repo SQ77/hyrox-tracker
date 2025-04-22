@@ -1,5 +1,6 @@
 #hyrox-map-container {
     display: flex;
+    flex-direction: column;
 }
 
 .hyrox-map {
@@ -73,4 +74,67 @@
         transform: translate(-50%, -50%) scale(2.5);
         opacity: 0;
     }
+}
+
+/* ====================================== */
+/* ====== Progress Timeline Styles ====== */
+/* ====================================== */
+
+.hyrox-timeline {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    gap: 0;
+    padding: 0;
+    margin-top: 3rem;
+}
+
+.hyrox-timeline li {
+    position: relative;
+    flex: 1;
+    text-align: center;
+    font-size: 0.9rem;
+    list-style: none;
+}
+
+/* === Connecting Line === */
+.hyrox-timeline li:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    width: 100%;
+    height: 2px;
+    background-color: white;
+    z-index: 0;
+}
+
+/* === Circle === */
+.hyrox-timeline .circle {
+    width: 40px;
+    height: 40px;
+    margin: 0 auto 10px;
+    border-radius: 50%;
+    border: 2px solid #c6c6c6;
+    background: #c6c6c6;
+    line-height: 36px;
+    font-weight: bold;
+    font-size: 1.2rem;
+    position: relative;
+    z-index: 1;
+}
+
+.hyrox-timeline li.active-tl .circle {
+    background-color: #4caf50;
+}
+
+.hyrox-timeline .label {
+    display: block;
+    color: #c6c6c6;
+    font-size: 1.2rem;
+    max-width: 80px;
+    margin: 0 auto;
+    white-space: normal;
+    word-wrap: break-word;
+    text-align: center;
 }

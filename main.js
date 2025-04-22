@@ -1,5 +1,6 @@
 import { stages, stationStageMap, completed } from "./constants.js";
 import { raceConfigs } from "./raceConfigs.js";
+import { createProgressLine } from "./progressLine.js";
 
 const currentRaceId = "paris-April-2025";
 const { mapPath, imageWidth, imageHeight, trackSvg, stations } =
@@ -73,7 +74,7 @@ function animateAlongPath(pathEl, markerEl, retries = 5) {
             const { x, y } = pathEl.getPointAtLength(pathLength);
             markerEl.style.left = `${x}px`;
             markerEl.style.top = `${y}px`;
-            return; 
+            return;
         }
 
         const lapProgress = (elapsed % durationPerLap) / durationPerLap;
@@ -182,6 +183,9 @@ function createMap(currentStageIndex) {
     currentMarkerStageIndex = currentStageIndex;
     updateMarker();
 
+    const progressLine = createProgressLine(currentStageIndex);
+    container.appendChild(progressLine);
+
     return container;
 }
 
@@ -214,7 +218,7 @@ function updateMarker() {
 window.addEventListener("load", () => {
     const detail = document.querySelector(".detail") || document.body;
     const currentIndex = getCurrentStageIndex();
-    const map = createMap(currentIndex);
+    const map = createMap(2);
     detail.insertBefore(map, detail.firstChild);
 
     setInterval(() => {
