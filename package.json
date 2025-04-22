@@ -11,5 +11,8 @@
   "license": "ISC",
   "devDependencies": {
     "esbuild": "^0.25.2"
+  },
+  "dependencies": {
+    "canvas-confetti": "^1.9.3"
   }
 }
