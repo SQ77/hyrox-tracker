@@ -14,7 +14,7 @@
     "web_accessible_resources": [
         {
             "resources": ["*.jpg", "*.png"],
-            "matches": ["https://results.hyrox.com/season-*/**"]
+            "matches": ["https://results.hyrox.com/*"]
         }
     ]
 }
