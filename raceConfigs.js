@@ -1,3 +1,9 @@
+// Mapping of displayed race names to raceId values
+export const raceIdMap = {
+    "2025 Cologne": "cologne-April-2025",
+    "2025 Paris": "paris-April-2025",
+};
+
 export const raceConfigs = {
     "cologne-April-2025": {
         mapPath: "cologne-April-2025.jpg",

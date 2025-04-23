@@ -1,13 +1,31 @@
 import { stages, stationStageMap, completed } from "./constants.js";
-import { raceConfigs } from "./raceConfigs.js";
+import { raceConfigs, raceIdMap } from "./raceConfigs.js";
 import { createProgressLine, animateWave } from "./progressLine.js";
 
-const currentRaceId = "paris-April-2025";
-const { mapPath, imageWidth, imageHeight, trackSvg, stations } =
+let currentRaceId = "paris-April-2025";
+let { mapPath, imageWidth, imageHeight, trackSvg, stations } =
     raceConfigs[currentRaceId];
 
 let markerEl = null;
 let currentMarkerStageIndex = null;
+
+function getRaceId() {
+    const raceRow = [...document.querySelectorAll("tr")].find(
+        (tr) => tr.querySelector("th")?.textContent.trim() === "Race"
+    );
+
+    if (raceRow) {
+        const raceText = raceRow.querySelector("td")?.textContent.trim();
+        if (raceText && raceIdMap[raceText]) {
+            currentRaceId = raceIdMap[raceText];
+            const config = raceConfigs[currentRaceId];
+            if (config) {
+                ({ mapPath, imageWidth, imageHeight, trackSvg, stations } =
+                    config);
+            }
+        }
+    }
+}
 
 function getCurrentStageIndex() {
     const getTime = (label) => {
@@ -218,6 +236,7 @@ function updateMarker() {
 window.addEventListener("load", () => {
     const detail = document.querySelector(".detail") || document.body;
     const currentIndex = getCurrentStageIndex();
+    getRaceId();
     const map = createMap(currentIndex);
     detail.insertBefore(map, detail.firstChild);
     animateWave(currentIndex);
