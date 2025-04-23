@@ -29,13 +29,13 @@ export function createProgressLine(currentStageIndex) {
             circle.style.color = "black";
         }
 
-        if (index === 17) {
+        if (index === 17 && currentStageIndex === 17) {
             const confettiBtn = document.createElement("span");
             confettiBtn.textContent = "🎉";
             confettiBtn.style.cursor = "pointer";
             confettiBtn.title = "Celebrate!";
             Object.assign(confettiBtn.style, {
-                fontSize: "1.8rem",
+                fontSize: "1.9rem",
             });
             confettiBtn.onclick = () => launchConfetti();
 
