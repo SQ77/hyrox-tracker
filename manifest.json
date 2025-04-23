@@ -3,6 +3,9 @@
     "name": "Race Tracker",
     "version": "1.0",
     "description": "Visual tracker for Hyrox races",
+    "content_security_policy": {
+        "extension_pages": "default-src 'self'"
+    },
     "content_scripts": [
         {
             "matches": ["https://results.hyrox.com/season-*/**"],
