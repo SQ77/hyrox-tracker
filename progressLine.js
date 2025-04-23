@@ -22,7 +22,7 @@ export function createProgressLine(currentStageIndex) {
         label.className = "label";
         label.textContent = stage;
 
-        if (index <= currentStageIndex) {
+        if (index < currentStageIndex) {
             item.classList.add("active-tl");
             circle.style.color = "white";
         } else {
@@ -71,7 +71,7 @@ export function animateWave(currentIndex) {
             item.classList.remove("wave-animated", "fading-out");
             void item.offsetWidth; 
 
-            if (index <= currentIndex) {
+            if (index < currentIndex) {
                 setTimeout(() => {
                     item.classList.add("wave-animated");
 
