@@ -1,6 +1,8 @@
 import { stages } from "./constants";
 import confetti from "canvas-confetti";
 
+const FINISH = 17;
+
 export function createProgressLine(currentStageIndex) {
     const container = document.createElement("div");
     container.className = "hyrox-timeline-container";
@@ -14,7 +16,7 @@ export function createProgressLine(currentStageIndex) {
         // Circle element
         const circle = document.createElement("div");
         circle.className = "circle";
-        const startOrEnd = index === 0 || index === 17;
+        const startOrEnd = index === 0 || index === FINISH;
         circle.textContent = startOrEnd ? "" : index;
 
         // Label element
@@ -22,14 +24,14 @@ export function createProgressLine(currentStageIndex) {
         label.className = "label";
         label.textContent = stage;
 
-        if (index < currentStageIndex) {
+        if (index < currentStageIndex || index === FINISH) {
             item.classList.add("active-tl");
             circle.style.color = "white";
         } else {
             circle.style.color = "black";
         }
 
-        if (index === 17 && currentStageIndex === 17) {
+        if (index === FINISH && currentStageIndex === FINISH) {
             const confettiBtn = document.createElement("span");
             confettiBtn.textContent = "🎉";
             confettiBtn.style.cursor = "pointer";
@@ -71,7 +73,7 @@ export function animateWave(currentIndex) {
             item.classList.remove("wave-animated", "fading-out");
             void item.offsetWidth; 
 
-            if (index < currentIndex) {
+            if (index < currentIndex || index === FINISH) {
                 setTimeout(() => {
                     item.classList.add("wave-animated");
 
