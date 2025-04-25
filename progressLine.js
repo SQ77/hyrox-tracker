@@ -24,31 +24,33 @@ export function createProgressLine(currentStageIndex) {
         label.className = "label";
         label.textContent = stage;
 
-        if (index < currentStageIndex || index === FINISH) {
+        const hasFinished = index === FINISH && currentStageIndex === FINISH;
+
+        if (index < currentStageIndex || hasFinished) {
             item.classList.add("active-tl");
             circle.style.color = "white";
         } else {
             circle.style.color = "black";
         }
 
-        if (index === FINISH && currentStageIndex === FINISH) {
+        if (hasFinished) {
             const confettiBtn = document.createElement("span");
             confettiBtn.textContent = "🎉";
             confettiBtn.style.cursor = "pointer";
             confettiBtn.title = "Celebrate!";
             Object.assign(confettiBtn.style, {
                 fontSize: "1.9rem",
-                display: "inline-block", 
+                display: "inline-block",
             });
             confettiBtn.onclick = () => launchConfetti();
 
             circle.appendChild(confettiBtn);
-            
+
             // Wiggle animation
             setInterval(() => {
                 confettiBtn.classList.add("wiggle");
-                setTimeout(() => confettiBtn.classList.remove("wiggle"), 2000); 
-            }, 4000); 
+                setTimeout(() => confettiBtn.classList.remove("wiggle"), 2000);
+            }, 4000);
         }
 
         item.appendChild(circle);
@@ -78,9 +80,12 @@ export function animateWave(currentIndex) {
     function runWave() {
         timelineItems.forEach((item, index) => {
             item.classList.remove("wave-animated", "fading-out");
-            void item.offsetWidth; 
+            void item.offsetWidth;
 
-            if (index < currentIndex || index === FINISH) {
+            if (
+                index < currentIndex ||
+                (index === FINISH && currentIndex === FINISH)
+            ) {
                 setTimeout(() => {
                     item.classList.add("wave-animated");
 
@@ -97,6 +102,6 @@ export function animateWave(currentIndex) {
         });
     }
 
-    runWave(); 
-    setInterval(runWave, (currentIndex + 1) * 600 + 3000); 
+    runWave();
+    setInterval(runWave, (currentIndex + 1) * 600 + 3000);
 }
