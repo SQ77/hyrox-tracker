@@ -58,11 +58,11 @@ button:disabled {
 }
 
 button.secondary {
-    background-color: #aaa;
+    background-color: rgba(255, 0, 0, 0.747);
 }
 
 button.secondary:hover:not(:disabled) {
-    background-color: #888;
+    background-color: rgba(210, 11, 11, 0.747);
 }
 
 button:not(.secondary) {
