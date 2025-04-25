@@ -10,6 +10,15 @@ let markerEl = null;
 let currentMarkerStageIndex = null;
 
 async function getRaceId() {
+    const urlParams = new URLSearchParams(location.search);
+    const idp = urlParams.get("idp");
+
+    if (!idp) {
+        console.warn("No idp found in URL.");
+        return;
+    }
+
+    // Try to detect race from the page
     const raceRow = [...document.querySelectorAll("tr")].find(
         (tr) => tr.querySelector("th")?.textContent.trim() === "Race"
     );
@@ -20,17 +29,18 @@ async function getRaceId() {
             currentRaceId = raceIdMap[raceText];
             const config = raceConfigs[currentRaceId];
             if (config) {
-                ({ mapPath, imageWidth, imageHeight, trackSvg, stations } = config);
-                chrome.storage.local.set({ currentRace: currentRaceId });
+                ({ mapPath, imageWidth, imageHeight, trackSvg, stations } =
+                    config);
+                chrome.storage.local.set({ [idp]: currentRaceId });
                 return;
             }
         }
     }
 
-    // Fallback to local storage if no race detected
+    // Fallback to chrome.storage.local using idp as key
     const currentRace = await new Promise((resolve) => {
-        chrome.storage.local.get("currentRace", (result) => {
-            resolve(result.currentRace);
+        chrome.storage.local.get([idp], (result) => {
+            resolve(result[idp]);
         });
     });
 
@@ -40,7 +50,6 @@ async function getRaceId() {
         ({ mapPath, imageWidth, imageHeight, trackSvg, stations } = config);
     }
 }
-
 
 function getCurrentStageIndex() {
     const getTime = (label) => {
@@ -264,9 +273,14 @@ window.addEventListener("load", async () => {
         }
     }, 90000);
 
-    chrome.storage.onChanged.addListener((changes, area) => {
-        if (area === "local" && changes.currentRace) {
-            location.reload();
-        }
-    });
+    const urlParams = new URLSearchParams(location.search);
+    const idp = urlParams.get("idp");
+
+    if (idp) {
+        chrome.storage.onChanged.addListener((changes, area) => {
+            if (area === "local" && changes[idp]) {
+                location.reload();
+            }
+        });
+    }
 });
