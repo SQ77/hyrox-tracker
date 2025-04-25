@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Race Tracker</title>
+        <link rel="stylesheet" href="popup.css" />
+    </head>
+    <body>
+        <div class="container">
+            <h2>Race Tracker</h2>
+            <h3 id="race-info">Detecting race location...</h3>
+
+            <select id="race-select">
+                <option value="">-- Select Race --</option>
+                <option value="cologne-April-2025">Cologne April 2025</option>
+                <option value="paris-April-2025">Paris April 2025</option>
+                <option value="london-May-2025" disabled>
+                    London May 2025
+                </option>
+                <option value="mumbai-May-2025" disabled>
+                    Mumbai May 2025
+                </option>
+                <option value="heerenveen-May-2025" disabled>
+                    Heerenveen May 2025
+                </option>
+                <option value="berlin-May-2025" disabled>
+                    Berlin May 2025
+                </option>
+                <option value="incheon-May-2025" disabled>
+                    Incheon May 2025
+                </option>
+                <option value="bangkok-May-2025" disabled>
+                    Bangkok May 2025
+                </option>
+                <option value="newyork-May-2025" disabled>
+                    New York May 2025
+                </option>
+                <option value="rimini-May-2025" disabled>
+                    Rimini May 2025
+                </option>
+                <option value="cardiff-May-2025" disabled>
+                    Cardiff May 2025
+                </option>
+                <option value="riga-May-2025" disabled>Riga May 2025</option>
+                <option value="chicago-June-2025" disabled>
+                    Chicago June 2025
+                </option>
+                <option value="singapore-June-2025" disabled>
+                    Singapore June 2025
+                </option>
+            </select>
+
+            <div class="button-row">
+                <button id="reset-btn" class="secondary">Reset</button>
+                <button id="confirm-btn" disabled>Confirm</button>
+            </div>
+        </div>
+
+        <script src="popup.js"></script>
+    </body>
+</html>
