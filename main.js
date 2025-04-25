@@ -9,7 +9,7 @@ let { mapPath, imageWidth, imageHeight, trackSvg, stations } =
 let markerEl = null;
 let currentMarkerStageIndex = null;
 
-function getRaceId() {
+async function getRaceId() {
     const raceRow = [...document.querySelectorAll("tr")].find(
         (tr) => tr.querySelector("th")?.textContent.trim() === "Race"
     );
@@ -20,12 +20,27 @@ function getRaceId() {
             currentRaceId = raceIdMap[raceText];
             const config = raceConfigs[currentRaceId];
             if (config) {
-                ({ mapPath, imageWidth, imageHeight, trackSvg, stations } =
-                    config);
+                ({ mapPath, imageWidth, imageHeight, trackSvg, stations } = config);
+                chrome.storage.local.set({ currentRace: currentRaceId });
+                return;
             }
         }
     }
+
+    // Fallback to local storage if no race detected
+    const currentRace = await new Promise((resolve) => {
+        chrome.storage.local.get("currentRace", (result) => {
+            resolve(result.currentRace);
+        });
+    });
+
+    if (currentRace && raceConfigs[currentRace]) {
+        currentRaceId = currentRace;
+        const config = raceConfigs[currentRaceId];
+        ({ mapPath, imageWidth, imageHeight, trackSvg, stations } = config);
+    }
 }
+
 
 function getCurrentStageIndex() {
     const getTime = (label) => {
@@ -233,10 +248,10 @@ function updateMarker() {
     }
 }
 
-window.addEventListener("load", () => {
+window.addEventListener("load", async () => {
     const detail = document.querySelector(".detail") || document.body;
     const currentIndex = getCurrentStageIndex();
-    getRaceId();
+    await getRaceId();
     const map = createMap(currentIndex);
     detail.insertBefore(map, detail.firstChild);
     animateWave(currentIndex);
@@ -248,4 +263,10 @@ window.addEventListener("load", () => {
             updateMarker();
         }
     }, 90000);
+
+    chrome.storage.onChanged.addListener((changes, area) => {
+        if (area === "local" && changes.currentRace) {
+            location.reload();
+        }
+    });
 });

@@ -3,6 +3,15 @@
     "name": "Race Tracker",
     "version": "1.0",
     "description": "Visual tracker for Hyrox races",
+    "action": {
+        "default_popup": "popup.html",
+        "default_icon": {
+            "16": "icons/icon-16.png",
+            "32": "icons/icon-32.png",
+            "48": "icons/icon-48.png",
+            "128": "icons/icon-128.png"
+        }
+    },
     "content_security_policy": {
         "extension_pages": "default-src 'self'"
     },
@@ -25,5 +34,6 @@
         "32": "icons/icon-32.png",
         "48": "icons/icon-48.png",
         "128": "icons/icon-128.png"
-    }
+    },
+    "permissions": ["storage"]
 }
