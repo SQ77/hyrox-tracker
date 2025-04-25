@@ -38,10 +38,17 @@ export function createProgressLine(currentStageIndex) {
             confettiBtn.title = "Celebrate!";
             Object.assign(confettiBtn.style, {
                 fontSize: "1.9rem",
+                display: "inline-block", 
             });
             confettiBtn.onclick = () => launchConfetti();
 
             circle.appendChild(confettiBtn);
+            
+            // Wiggle animation
+            setInterval(() => {
+                confettiBtn.classList.add("wiggle");
+                setTimeout(() => confettiBtn.classList.remove("wiggle"), 2000); 
+            }, 4000); 
         }
 
         item.appendChild(circle);

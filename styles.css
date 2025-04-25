@@ -193,3 +193,29 @@
     background-color: #c6c6c6;
     transition: background-color 1.5s ease;
 }
+
+/* ===================================================================== */
+/* ====== Progress Timeline Confetti Icon Wiggle Animation Styles ====== */
+/* ===================================================================== */
+
+@keyframes wiggle {
+    0% {
+        transform: rotate(0deg);
+    }
+    25% {
+        transform: rotate(20deg);
+    }
+    50% {
+        transform: rotate(-20deg);
+    }
+    75% {
+        transform: rotate(20deg);
+    }
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
+.wiggle {
+    animation: wiggle 0.5s ease-in-out;
+}
