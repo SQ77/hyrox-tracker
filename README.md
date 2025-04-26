@@ -8,3 +8,4 @@
 - Overlays a static race map for context
 - Highlights completed workout stations
 - Animates running segments along the race track
+- Displays a progress line showing the athlete's progress
