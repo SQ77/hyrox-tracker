@@ -9,7 +9,7 @@ chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
     const idp = new URLSearchParams(url.search).get("idp");
 
     if (!idp) {
-        info.textContent = "Error: idp not found in URL.";
+        info.textContent = "No race detected.";
         confirmBtn.disabled = true;
         return;
     }

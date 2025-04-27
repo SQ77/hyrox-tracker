@@ -1,7 +1,7 @@
 {
     "manifest_version": 3,
     "name": "Race Tracker",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "description": "Visual tracker for Hyrox races",
     "action": {
         "default_popup": "popup.html",
@@ -35,6 +35,6 @@
         "48": "icons/icon-48.png",
         "128": "icons/icon-128.png"
     },
-    "permissions": ["storage", "tabs"],
+    "permissions": ["storage", "activeTab"],
     "host_permissions": ["https://results.hyrox.com/*"]
 }
