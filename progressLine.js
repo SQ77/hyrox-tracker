@@ -3,7 +3,23 @@ import confetti from "canvas-confetti";
 
 const FINISH = 17;
 
-export function createProgressLine(currentStageIndex) {
+export function getRunningTimes() {
+    const times = {};
+    const rows = document.querySelectorAll("table.table-condensed tbody tr");
+
+    rows.forEach((row) => {
+        const desc = row.querySelector("th.desc")?.textContent?.trim();
+        const time = row.querySelector("td")?.textContent?.trim();
+
+        if (desc?.startsWith("Running") && time && time !== "–") {
+            times[desc] = time;
+        }
+    });
+
+    return times;
+}
+
+export function createProgressLine(currentStageIndex, runningTimes = {}) {
     const container = document.createElement("div");
     container.className = "hyrox-timeline-container";
 
@@ -31,6 +47,31 @@ export function createProgressLine(currentStageIndex) {
             circle.style.color = "white";
         } else {
             circle.style.color = "black";
+        }
+
+        if (stage.toLowerCase().includes("running")) {
+            const time = runningTimes[stage];
+            if (time) {
+                const tooltip = document.createElement("div");
+                tooltip.className = "station-tooltip";
+                tooltip.textContent = `${time}`;
+
+                item.appendChild(tooltip);
+
+                circle.addEventListener("mouseenter", () => {
+                    tooltip.style.display = "block";
+                });
+
+                circle.addEventListener("mousemove", (e) => {
+                    const rect = circle.getBoundingClientRect();
+                    tooltip.style.top = `${e.clientY - rect.top + 20}px`;
+                    tooltip.style.left = `${e.clientX - rect.left + 20}px`;
+                });
+
+                circle.addEventListener("mouseleave", () => {
+                    tooltip.style.display = "none";
+                });
+            }
         }
 
         if (hasFinished) {

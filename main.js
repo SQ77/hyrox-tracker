@@ -1,6 +1,6 @@
 import { stages, stationStageMap, completed } from "./constants.js";
 import { raceConfigs, raceIdMap } from "./raceConfigs.js";
-import { createProgressLine, animateWave } from "./progressLine.js";
+import { createProgressLine, animateWave, getRunningTimes } from "./progressLine.js";
 
 let currentRaceId = "paris-April-2025";
 let { mapPath, imageWidth, imageHeight, trackSvg, stations } =
@@ -225,7 +225,8 @@ function createMap(currentStageIndex) {
     currentMarkerStageIndex = currentStageIndex;
     updateMarker();
 
-    const progressLine = createProgressLine(currentStageIndex);
+    const runningTimes = getRunningTimes();
+    const progressLine = createProgressLine(currentStageIndex, runningTimes);
     container.appendChild(progressLine);
 
     return container;
