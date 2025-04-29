@@ -9,3 +9,8 @@
 - Highlights completed workout stations
 - Animates running segments along the race track
 - Displays a progress line showing the athlete's progress
+
+## Installation
+
+You can install the extension directly from the Chrome Web Store:  
+[Race Tracker on Chrome Web Store](https://chromewebstore.google.com/detail/race-tracker/cjpcedbmmjdjlnibdhfmljjdpeicnfkf)
