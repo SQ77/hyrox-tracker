@@ -110,3 +110,23 @@ p {
     font-size: 12px;
     max-width: 75%;
 }
+.try-button-container {
+    margin-bottom: 40px;
+}
+.try-button {
+    background: linear-gradient(90deg, #ff416c, #ff4b2b);
+    color: white;
+    padding: 12px 24px;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background 0.3s ease;
+    box-shadow: 0 4px 12px rgba(255, 75, 43, 0.4);
+    display: inline-block;
+}
+.try-button:hover {
+    background: linear-gradient(90deg, #ff4b2b, #ff416c);
+    box-shadow: 0 6px 16px rgba(255, 75, 43, 0.5);
+}
