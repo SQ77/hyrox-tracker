@@ -1,8 +1,12 @@
 import { stages, stationStageMap, completed } from "./constants.js";
 import { raceConfigs, raceIdMap } from "./raceConfigs.js";
-import { createProgressLine, animateWave, getRunningTimes } from "./progressLine.js";
+import {
+    createProgressLine,
+    animateWave,
+    getRunningTimes,
+} from "./progressLine.js";
 
-let currentRaceId = "paris-April-2025";
+let currentRaceId = "london-May-2025";
 let { mapPath, imageWidth, imageHeight, trackSvg, stations } =
     raceConfigs[currentRaceId];
 

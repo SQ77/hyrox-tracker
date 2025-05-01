@@ -2,6 +2,7 @@
 export const raceIdMap = {
     "2025 Cologne": "cologne-April-2025",
     "2025 Paris": "paris-April-2025",
+    "2025 London": "london-May-2025",
 };
 
 export const raceConfigs = {
@@ -116,6 +117,63 @@ export const raceConfigs = {
                 right: 651,
             },
             "station-end": { top: 125, left: 585, bottom: 180, right: 652 },
+        },
+    },
+
+    "london-May-2025": {
+        mapPath: "london-May-2025.png",
+        imageWidth: 1251,
+        imageHeight: 841,
+        trackSvg: `
+            <svg id="track-overlay" class="hyrox-track-overlay" viewBox="-100 100 800 600">
+                <path id="track-path"
+                    d="M 1055 37 L 478 38 C 460 44 446 48 444 68 L 443 148 L 391 187 L 113 189 C 80 190 70 201 68 217 L 67 329 C 66 349 83 356 107 360 L 440 356 C 459 378 476 387 503 394 L 1027 396 C 1092 374 1104 338 1127 284 C 1126.6667 218 1126.3333 152 1126 86 C 1122 55 1093 37 1060 38"
+                    fill="none"
+                    stroke="transparent"
+                    stroke-width="5"/>
+            </svg>
+        `,
+        stations: {
+            "station-start": { top: 497, left: 1021, bottom: 640, right: 1069 },
+            "station-skierg": { top: 206, left: 159, bottom: 267, right: 394 },
+            "station-sled-push": {
+                top: 249,
+                left: 508,
+                bottom: 348,
+                right: 807,
+            },
+            "station-sled-pull": {
+                top: 102,
+                left: 497,
+                bottom: 221,
+                right: 788,
+            },
+            "station-burpee-jumps": {
+                top: 103,
+                left: 819,
+                bottom: 350,
+                right: 886,
+            },
+            "station-row": { top: 105, left: 905, bottom: 267, right: 970 },
+            "station-farmers-carry": {
+                top: 105,
+                left: 1068,
+                bottom: 274,
+                right: 1106,
+            },
+            "station-sandbag-lunges": {
+                top: 103,
+                left: 969,
+                bottom: 265,
+                right: 1068,
+            },
+            "station-wallballs": {
+                top: 691,
+                left: 772,
+                bottom: 761,
+                right: 1024,
+            },
+            "station-end": { top: 688, left: 1025, bottom: 824, right: 1124 },
         },
     },
 };
