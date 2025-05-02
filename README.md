@@ -14,3 +14,7 @@
 
 You can install the extension directly from the Chrome Web Store:  
 [Race Tracker on Chrome Web Store](https://chromewebstore.google.com/detail/race-tracker/cjpcedbmmjdjlnibdhfmljjdpeicnfkf)
+
+## Acknowledgements
+
+Welcome page adapted from [BetterCanvas](https://github.com/ksucpea/bettercanvas)
