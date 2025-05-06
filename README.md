@@ -10,7 +10,7 @@
 - Animates running segments along the race track
 - Displays a progress line showing the athlete's progress
 
-Current Available Race Maps: Cologne (April 2025), Paris (April 2025), London (May 2025)
+Current Available Race Maps: Cologne (April 2025), Paris (April 2025), London (May 2025), Heerenveen (May 2025)
 
 ## Installation
 

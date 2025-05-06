@@ -23,7 +23,7 @@ chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
             confirmBtn.disabled = false;
         } else {
             info.textContent =
-                "No race detected. Defaulted to London May 2025.";
+                "No race detected. Defaulted to Heerenveen May 2025.";
         }
     });
 
@@ -43,7 +43,7 @@ chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
 
     resetBtn.addEventListener("click", () => {
         chrome.storage.local.remove(idp, () => {
-            info.textContent = "Current Race: london-May-2025";
+            info.textContent = "Current Race: heerenveen-May-2025";
             select.value = "";
             confirmBtn.disabled = true;
         });
