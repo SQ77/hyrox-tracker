@@ -12,6 +12,8 @@ let { mapPath, imageWidth, imageHeight, trackSvg, stations } =
 
 let markerEl = null;
 let currentMarkerStageIndex = null;
+let lastNotifiedStageIndex = null;
+const athleteNames = extractAthleteNames();
 
 async function getRaceId() {
     const urlParams = new URLSearchParams(location.search);
@@ -236,8 +238,50 @@ function createMap(currentStageIndex) {
     return container;
 }
 
+function extractAthleteNames() {
+    const names = [];
+
+    // Single athlete
+    const singleEl = document.querySelector("td.f-__fullname.last");
+    if (singleEl) {
+        names.push(cleanName(singleEl.textContent));
+        return names;
+    }
+
+    // Doubles or Team
+    const memberRows = [
+        ...document.querySelectorAll("table.table-condensed tr"),
+    ].filter((tr) => tr.querySelector("th")?.textContent?.startsWith("Member"));
+
+    for (const row of memberRows) {
+        const name = row.querySelector("td")?.textContent;
+        if (name) names.push(cleanName(name));
+    }
+
+    return names;
+}
+
+// Removes country code from athlete names
+function cleanName(name) {
+    return name.replace(/\s*\([A-Z]{3}\)\s*$/, "").trim();
+}
+
 function updateMarker() {
     const newStageIndex = getCurrentStageIndex();
+
+    if (
+        newStageIndex !== currentMarkerStageIndex &&
+        newStageIndex !== lastNotifiedStageIndex &&
+        newStageIndex > 0
+    ) {
+        chrome.runtime.sendMessage({
+            type: "STAGE_COMPLETED",
+            names: athleteNames || ["Athlete"],
+            stage: stages[newStageIndex] || `New stage`,
+        });
+        lastNotifiedStageIndex = newStageIndex;
+    }
+
     currentMarkerStageIndex = newStageIndex;
 
     const marker = markerEl;
