@@ -305,18 +305,25 @@ function createNotification(currentIndex) {
 
     if (completedStageIndex <= 0) return;
 
-    chrome.storage.local.get([storageKey], (result) => {
-        const lastStoredIndex = result[storageKey];
+    // Check notification preference
+    chrome.storage.sync.get(["notificationsEnabled"], (prefs) => {
+        if (!prefs.notificationsEnabled) {
+            return;
+        }
 
-        if (completedStageIndex !== lastStoredIndex) {
-            chrome.runtime.sendMessage({
-                type: "STAGE_COMPLETED",
-                names: athleteNames || ["Athlete"],
-                stage: stages[completedStageIndex] || `New stage`,
-            });
+        chrome.storage.local.get([storageKey], (result) => {
+            const lastStoredIndex = result[storageKey];
 
-            chrome.storage.local.set({ [storageKey]: completedStageIndex });
-        } 
+            if (completedStageIndex !== lastStoredIndex) {
+                chrome.runtime.sendMessage({
+                    type: "STAGE_COMPLETED",
+                    names: athleteNames || ["Athlete"],
+                    stage: stages[completedStageIndex] || `New stage`,
+                });
+
+                chrome.storage.local.set({ [storageKey]: completedStageIndex });
+            }
+        });
     });
 }
 
