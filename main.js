@@ -307,7 +307,9 @@ function createNotification(currentIndex) {
 
     // Check notification preference
     chrome.storage.sync.get(["notificationsEnabled"], (prefs) => {
-        if (!prefs.notificationsEnabled) {
+        const notificationsEnabled = prefs.notificationsEnabled ?? false;
+
+        if (!notificationsEnabled) {
             return;
         }
 
