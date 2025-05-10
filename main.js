@@ -12,7 +12,6 @@ let { mapPath, imageWidth, imageHeight, trackSvg, stations } =
 
 let markerEl = null;
 let currentMarkerStageIndex = null;
-let lastNotifiedStageIndex = null;
 const athleteNames = extractAthleteNames();
 
 async function getRaceId() {
@@ -268,20 +267,6 @@ function cleanName(name) {
 
 function updateMarker() {
     const newStageIndex = getCurrentStageIndex();
-
-    if (
-        newStageIndex !== currentMarkerStageIndex &&
-        newStageIndex !== lastNotifiedStageIndex &&
-        newStageIndex > 0
-    ) {
-        chrome.runtime.sendMessage({
-            type: "STAGE_COMPLETED",
-            names: athleteNames || ["Athlete"],
-            stage: stages[newStageIndex] || `New stage`,
-        });
-        lastNotifiedStageIndex = newStageIndex;
-    }
-
     currentMarkerStageIndex = newStageIndex;
 
     const marker = markerEl;
@@ -306,6 +291,35 @@ function updateMarker() {
     }
 }
 
+function createNotification(currentIndex) {
+    const urlParams = new URLSearchParams(location.search);
+    const idp = urlParams.get("idp");
+
+    if (!idp) {
+        console.warn("No idp found in URL.");
+        return;
+    }
+
+    const storageKey = `lastStageIndex-${idp}`;
+    const completedStageIndex = currentIndex - 1;
+
+    if (completedStageIndex <= 0) return;
+
+    chrome.storage.local.get([storageKey], (result) => {
+        const lastStoredIndex = result[storageKey];
+
+        if (completedStageIndex !== lastStoredIndex) {
+            chrome.runtime.sendMessage({
+                type: "STAGE_COMPLETED",
+                names: athleteNames || ["Athlete"],
+                stage: stages[completedStageIndex] || `New stage`,
+            });
+
+            chrome.storage.local.set({ [storageKey]: completedStageIndex });
+        } 
+    });
+}
+
 window.addEventListener("load", async () => {
     const detail = document.querySelector(".detail") || document.body;
     const currentIndex = getCurrentStageIndex();
@@ -313,6 +327,7 @@ window.addEventListener("load", async () => {
     const map = createMap(currentIndex);
     detail.insertBefore(map, detail.firstChild);
     animateWave(currentIndex);
+    createNotification(currentIndex);
 
     setInterval(() => {
         location.reload();

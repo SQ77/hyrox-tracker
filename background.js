@@ -19,8 +19,8 @@ chrome.runtime.onMessage.addListener((message) => {
         chrome.notifications.create({
             type: "basic",
             iconUrl: "icons/icon-48.png",
-            title: "Stage Completed!",
-            message: `${nameList} completed ${stage}.`,
+            title: `${stage} Completed!`,
+            message: `${nameList}`,
             priority: 2,
         });
     }
