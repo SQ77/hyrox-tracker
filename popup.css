@@ -89,5 +89,5 @@ button:not(.secondary):hover:not(:disabled) {
 }
 
 .notification-icon.enabled svg {
-    fill: #facc15; 
+    fill: #151103; 
 }
