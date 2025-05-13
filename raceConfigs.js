@@ -4,6 +4,7 @@ export const raceIdMap = {
     "2025 Paris": "paris-April-2025",
     "2025 London": "london-May-2025",
     "2025 Heerenveen": "heerenveen-May-2025",
+    "2025 Berlin": "berlin-May-2025",
 };
 
 export const raceConfigs = {
@@ -237,6 +238,87 @@ export const raceConfigs = {
                 right: 723,
             },
             "station-end": { top: 97, left: 555, bottom: 219, right: 725 },
+        },
+    },
+
+    "berlin-May-2025": {
+        mapPath: "berlin-May-2025.png",
+        imageWidth: 1381,
+        imageHeight: 775,
+        trackSvg: `
+            <svg id="track-overlay" class="hyrox-track-overlay" viewBox="-100 100 800 600">
+                <path id="track-path"
+                    d="M 1092 430 C 1287 314 1238 120 1084 31 L 251 22 A 1 1 0 0 0 267 452 L 1033 454 C 1059 457 1073 439 1092 433"
+                    fill="none"
+                    stroke="transparent"
+                    stroke-width="5"/>
+            </svg>
+        `,
+        stations: {
+            "station-start": { top: 609, left: 1084, bottom: 701, right: 1126 },
+            "station-skierg": {
+                points: [
+                    [85, 448],
+                    [142, 475],
+                    [106, 555],
+                    [45, 525],
+                ],
+            },
+            "station-sled-push": {
+                points: [
+                    [155, 482],
+                    [350, 566],
+                    [317, 645],
+                    [125, 563],
+                ],
+            },
+            "station-sled-pull": {
+                points: [
+                    [396, 584],
+                    [610, 642],
+                    [589, 723],
+                    [380, 665],
+                ],
+            },
+            "station-burpee-jumps": {
+                points: [
+                    [618, 642],
+                    [712, 657],
+                    [701, 739],
+                    [608, 722],
+                ],
+            },
+            "station-row": {
+                points: [
+                    [719, 657],
+                    [799, 665],
+                    [791, 748],
+                    [713, 736],
+                ],
+            },
+            "station-farmers-carry": {
+                points: [
+                    [436, 531],
+                    [586, 570],
+                    [765, 595],
+                    [761, 626],
+                    [579, 603],
+                    [430, 561],
+                ],
+            },
+            "station-sandbag-lunges": {
+                top: 648,
+                left: 806,
+                bottom: 748,
+                right: 879,
+            },
+            "station-wallballs": {
+                top: 589,
+                left: 972,
+                bottom: 737,
+                right: 1022,
+            },
+            "station-end": { top: 692, left: 891, bottom: 765, right: 932 },
         },
     },
 };

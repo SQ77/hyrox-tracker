@@ -6,7 +6,7 @@ import {
     getRunningTimes,
 } from "./progressLine.js";
 
-let currentRaceId = "heerenveen-May-2025";
+let currentRaceId = "berlin-May-2025";
 let { mapPath, imageWidth, imageHeight, trackSvg, stations } =
     raceConfigs[currentRaceId];
 
@@ -65,6 +65,8 @@ function getCurrentStageIndex() {
 
     const running1Time = getTime("Running 1");
     const wallBallsTime = getTime("Wall Balls");
+
+    return 4;
 
     if (!running1Time || running1Time === "–") {
         return 0; // Start
@@ -162,23 +164,59 @@ function createMap(currentStageIndex) {
     const SHIFT_X = 15;
 
     for (const station of Object.values(stations)) {
-        station.left += SHIFT_X;
-        station.right += SHIFT_X;
+        if (station.points) {
+            station.points = station.points.map(([x, y]) => [x + SHIFT_X, y]);
+        } else {
+            station.left += SHIFT_X;
+            station.right += SHIFT_X;
+        }
     }
 
-    // Place station rectangles
+    // Place station outlines
     for (const [id, style] of Object.entries(stations)) {
         const div = document.createElement("div");
         div.id = id;
         div.className = "station-highlight";
 
-        const width = style.right - style.left;
-        const height = style.bottom - style.top;
-
         const stageIndex = Object.values(stationStageMap).indexOf(id);
         const stageLabel = stages[stageIndex];
 
-        // Get stage-specific time for non-finish stages
+        const isCompleted = completed[stageIndex];
+
+        if (style.points) {
+            // Polygon
+            const clipPathPoints = style.points
+                .map(([x, y]) => `${x}px ${y}px`)
+                .join(", ");
+            Object.assign(div.style, {
+                clipPath: `polygon(${clipPathPoints})`,
+                position: "absolute",
+                top: "0",
+                left: "0",
+                width: `${imageWidth}px`,
+                height: `${imageHeight}px`,
+                background: isCompleted
+                    ? "rgba(0, 255, 0, 0.3)"
+                    : "transparent",
+                zIndex: 6,
+            });
+        } else {
+            // Rectangle
+            const width = style.right - style.left;
+            const height = style.bottom - style.top;
+            Object.assign(div.style, {
+                top: `${style.top}px`,
+                left: `${style.left}px`,
+                width: `${width}px`,
+                height: `${height}px`,
+                position: "absolute",
+                background: isCompleted
+                    ? "rgba(0, 255, 0, 0.3)"
+                    : "transparent",
+            });
+        }
+
+        // Get stage-specific time
         const time = document.querySelectorAll("th.desc")
             ? [...document.querySelectorAll("th.desc")]
                   .find((el) => el.textContent.trim() === stageLabel)
@@ -190,7 +228,7 @@ function createMap(currentStageIndex) {
             .querySelector("td.f-time_finish_netto.last")
             ?.textContent?.trim();
 
-        div.addEventListener("mouseenter", (e) => {
+        div.addEventListener("mouseenter", () => {
             if (stageLabel.toLowerCase().includes("finish") && totalTime) {
                 tooltip.textContent = `Total Time: ${totalTime}`;
                 tooltip.style.display = "block";
@@ -210,16 +248,6 @@ function createMap(currentStageIndex) {
             tooltip.style.display = "none";
         });
 
-        Object.assign(div.style, {
-            top: `${style.top}px`,
-            left: `${style.left}px`,
-            width: `${width}px`,
-            height: `${height}px`,
-            position: "absolute",
-            background: completed[stageIndex]
-                ? "rgba(0, 255, 0, 0.3)"
-                : "transparent",
-        });
         container.appendChild(div);
     }
 
@@ -279,10 +307,23 @@ function updateMarker() {
         marker.style.display = "block";
         animateAlongPath(document.getElementById("track-path"), marker);
     } else if (currentStationName && stations[currentStationName]) {
-        // Athlete is at a station
-        const { top, left, bottom, right } = stations[currentStationName];
-        const centerY = top + (bottom - top) / 2;
-        const centerX = left + (right - left) / 2;
+        const station = stations[currentStationName];
+
+        let centerX, centerY;
+
+        if (station.points && Array.isArray(station.points)) {
+            // Compute center of polygon
+            const xs = station.points.map(([x, _]) => x);
+            const ys = station.points.map(([_, y]) => y);
+            centerX = xs.reduce((a, b) => a + b, 0) / xs.length;
+            centerY = ys.reduce((a, b) => a + b, 0) / ys.length;
+        } else {
+            // Rectangle
+            const { top, left, bottom, right } = station;
+            centerY = top + (bottom - top) / 2;
+            centerX = left + (right - left) / 2;
+        }
+
         marker.style.top = `${centerY}px`;
         marker.style.left = `${centerX}px`;
         marker.style.display = "block";
