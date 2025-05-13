@@ -1,4 +1,5 @@
-# Hyrox Tracker
+# Hyrox Tracker [![Chrome Web Store](https://img.shields.io/chrome-web-store/v/cjpcedbmmjdjlnibdhfmljjdpeicnfkf?label=Chrome%20Web%20Store)](https://chromewebstore.google.com/detail/race-tracker/cjpcedbmmjdjlnibdhfmljjdpeicnfkf)
+
 **Hyrox Tracker** is a browser extension that visualizes an athlete's current position on the Hyrox course using race data from event result pages. It overlays a race map and live marker directly onto the webpage to track progress in real time.
 
 ## Features
