@@ -10,6 +10,7 @@
 - Highlights completed workout stations
 - Animates running segments along the race track
 - Displays a progress line showing the athlete's progress
+- Displays notifications when athletes complete a new stage
 
 ## Current Available Race Maps
 - Cologne (April 2025)
