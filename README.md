@@ -18,6 +18,7 @@
 - London (May 2025)
 - Heerenveen (May 2025)
 - Berlin (May 2025)
+- Bangkok (May 2025)
 
 ## Installation
 
