@@ -7,7 +7,7 @@ import {
 } from "./progressLine.js";
 
 let currentRaceId = "bangkok-May-2025";
-let { mapPath, imageWidth, imageHeight, trackSvg, stations } =
+let { scale, mapPath, imageWidth, imageHeight, trackSvg, stations } =
     raceConfigs[currentRaceId];
 
 let markerEl = null;
@@ -34,8 +34,14 @@ async function getRaceId() {
             currentRaceId = raceIdMap[raceText];
             const config = raceConfigs[currentRaceId];
             if (config) {
-                ({ mapPath, imageWidth, imageHeight, trackSvg, stations } =
-                    config);
+                ({
+                    scale,
+                    mapPath,
+                    imageWidth,
+                    imageHeight,
+                    trackSvg,
+                    stations,
+                } = config);
                 chrome.storage.local.set({ [idp]: currentRaceId });
                 return;
             }
@@ -52,7 +58,8 @@ async function getRaceId() {
     if (currentRace && raceConfigs[currentRace]) {
         currentRaceId = currentRace;
         const config = raceConfigs[currentRaceId];
-        ({ mapPath, imageWidth, imageHeight, trackSvg, stations } = config);
+        ({ scale, mapPath, imageWidth, imageHeight, trackSvg, stations } =
+            config);
     }
 }
 
@@ -147,8 +154,8 @@ function createMap(currentStageIndex) {
     map.alt = "Hyrox Map";
     map.className = "hyrox-map";
     Object.assign(map.style, {
-        height: `${imageHeight}px`,
-        width: `${imageWidth}px`,
+        height: `${imageHeight * scale}px`,
+        width: `${imageWidth * scale}px`,
     });
     container.appendChild(map);
 
@@ -163,10 +170,15 @@ function createMap(currentStageIndex) {
 
     for (const station of Object.values(stations)) {
         if (station.points) {
-            station.points = station.points.map(([x, y]) => [x + SHIFT_X, y]);
+            station.points = station.points.map(([x, y]) => [
+                x * scale + SHIFT_X,
+                y * scale,
+            ]);
         } else {
-            station.left += SHIFT_X;
-            station.right += SHIFT_X;
+            station.left = station.left * scale + SHIFT_X;
+            station.right = station.right * scale + SHIFT_X;
+            station.top *= scale;
+            station.bottom *= scale;
         }
     }
 
@@ -191,8 +203,8 @@ function createMap(currentStageIndex) {
                 position: "absolute",
                 top: "0",
                 left: "0",
-                width: `${imageWidth}px`,
-                height: `${imageHeight}px`,
+                width: `${imageWidth * scale}px`,
+                height: `${imageHeight * scale}px`,
                 background: isCompleted
                     ? "rgba(0, 255, 0, 0.3)"
                     : "transparent",

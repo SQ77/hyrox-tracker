@@ -10,6 +10,7 @@ export const raceIdMap = {
 
 export const raceConfigs = {
     "cologne-April-2025": {
+        scale: 1,
         mapPath: "cologne-April-2025.jpg",
         imageWidth: 910,
         imageHeight: 626,
@@ -67,6 +68,7 @@ export const raceConfigs = {
     },
 
     "paris-April-2025": {
+        scale: 1,
         mapPath: "paris-April-2025.png",
         imageWidth: 1136,
         imageHeight: 620,
@@ -124,6 +126,7 @@ export const raceConfigs = {
     },
 
     "london-May-2025": {
+        scale: 1,
         mapPath: "london-May-2025.png",
         imageWidth: 1251,
         imageHeight: 841,
@@ -181,6 +184,7 @@ export const raceConfigs = {
     },
 
     "heerenveen-May-2025": {
+        scale: 1,
         mapPath: "heerenveen-May-2025.png",
         imageWidth: 1254,
         imageHeight: 493,
@@ -243,6 +247,7 @@ export const raceConfigs = {
     },
 
     "berlin-May-2025": {
+        scale: 1,
         mapPath: "berlin-May-2025.png",
         imageWidth: 1381,
         imageHeight: 775,
@@ -324,16 +329,17 @@ export const raceConfigs = {
     },
 
     "bangkok-May-2025": {
+        scale: 0.8,
         mapPath: "bangkok-May-2025.png",
         imageWidth: 1449,
         imageHeight: 779,
         trackSvg: `
-            <svg id="track-overlay" class="hyrox-track-overlay" viewBox="-100 100 800 600">
+            <svg id="track-overlay" class="hyrox-track-overlay" viewBox="-80 80 640 480">
                 <path id="track-path"
-                    d="M 372 120 L 506 118 L 610 53 L 1261 54 C 1313 56 1385 46 1388 100 L 1398 553 C 1401 582 1398 612 1346 612 L 902 612 L 760 721 L 128 730 C 87 728 55 711 58 676 L 63 210 C 59 159 94 125 131 123 L 375 121"
+                    d="M 297.6 96 L 404.8 94.4 L 488 42.4 L 1008.8 43.2 C 1050.4 44.8 1108 36.8 1110.4 80 L 1118.4 442.4 C 1120.8 465.6 1118.4 489.6 1076.8 489.6 L 721.6 489.6 L 608 576.8 L 102.4 584 C 69.6 582.4 44 568.8 46.4 540.8 L 50.4 168 C 47.2 127.2 75.2 100 104.8 98.4 L 300 96.8"
                     fill="none"
                     stroke="transparent"
-                    stroke-width="5"/>
+                    stroke-width="4" />
             </svg>
         `,
         stations: {
