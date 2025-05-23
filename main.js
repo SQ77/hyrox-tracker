@@ -400,6 +400,25 @@ window.addEventListener("load", async () => {
     const urlParams = new URLSearchParams(location.search);
     const idp = urlParams.get("idp");
 
+    // Restore scroll position based on idp
+    if (idp) {
+        const scrollKey = `scroll-${idp}`;
+        chrome.storage.local.get([scrollKey], (result) => {
+            const scrollY = result[scrollKey];
+            if (typeof scrollY === "number") {
+                window.scrollTo(0, scrollY);
+            }
+        });
+    }
+
+    // Save scroll position before page unload
+    window.addEventListener("beforeunload", () => {
+        if (idp) {
+            const scrollKey = `scroll-${idp}`;
+            chrome.storage.local.set({ [scrollKey]: window.scrollY });
+        }
+    });
+
     if (idp) {
         chrome.storage.onChanged.addListener((changes, area) => {
             if (area === "local" && changes[idp]) {
