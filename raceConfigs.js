@@ -11,7 +11,7 @@ export const raceIdMap = {
 export const raceConfigs = {
     "cologne-April-2025": {
         scale: 1,
-        mapPath: "cologne-April-2025.jpg",
+        mapPath: "maps/cologne-April-2025.jpg",
         imageWidth: 910,
         imageHeight: 626,
         trackSvg: `
@@ -69,7 +69,7 @@ export const raceConfigs = {
 
     "paris-April-2025": {
         scale: 1,
-        mapPath: "paris-April-2025.png",
+        mapPath: "maps/paris-April-2025.png",
         imageWidth: 1136,
         imageHeight: 620,
         trackSvg: `
@@ -127,7 +127,7 @@ export const raceConfigs = {
 
     "london-May-2025": {
         scale: 1,
-        mapPath: "london-May-2025.png",
+        mapPath: "maps/london-May-2025.png",
         imageWidth: 1251,
         imageHeight: 841,
         trackSvg: `
@@ -185,7 +185,7 @@ export const raceConfigs = {
 
     "heerenveen-May-2025": {
         scale: 1,
-        mapPath: "heerenveen-May-2025.png",
+        mapPath: "maps/heerenveen-May-2025.png",
         imageWidth: 1254,
         imageHeight: 493,
         trackSvg: `
@@ -248,7 +248,7 @@ export const raceConfigs = {
 
     "berlin-May-2025": {
         scale: 0.8,
-        mapPath: "berlin-May-2025.png",
+        mapPath: "maps/berlin-May-2025.png",
         imageWidth: 1381,
         imageHeight: 775,
         trackSvg: `
@@ -330,7 +330,7 @@ export const raceConfigs = {
 
     "bangkok-May-2025": {
         scale: 0.8,
-        mapPath: "bangkok-May-2025.png",
+        mapPath: "maps/bangkok-May-2025.png",
         imageWidth: 1449,
         imageHeight: 779,
         trackSvg: `

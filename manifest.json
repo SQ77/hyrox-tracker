@@ -29,7 +29,7 @@
     ],
     "web_accessible_resources": [
         {
-            "resources": ["*.jpg", "*.png"],
+            "resources": ["maps/*.jpg", "maps/*.png"],
             "matches": ["https://results.hyrox.com/*"]
         }
     ],
