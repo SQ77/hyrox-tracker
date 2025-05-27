@@ -6,7 +6,7 @@ import {
     getRunningTimes,
 } from "./progressLine.js";
 
-let currentRaceId = "bangkok-May-2025";
+let currentRaceId = "newyork-May-2025";
 let { scale, mapPath, imageWidth, imageHeight, trackSvg, stations } =
     raceConfigs[currentRaceId];
 

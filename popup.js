@@ -23,7 +23,7 @@ chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
             confirmBtn.disabled = false;
         } else {
             info.textContent =
-                "No race detected. Defaulted to Bangkok May 2025.";
+                "No race detected. Defaulted to New York May 2025.";
         }
     });
 
@@ -43,7 +43,7 @@ chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
 
     resetBtn.addEventListener("click", () => {
         chrome.storage.local.remove(idp, () => {
-            info.textContent = "Current Race: bangkok-May-2025";
+            info.textContent = "Current Race: newyork-May-2025";
             select.value = "";
             confirmBtn.disabled = true;
         });
