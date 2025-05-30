@@ -19,6 +19,7 @@
 - Heerenveen (May 2025)
 - Berlin (May 2025)
 - Bangkok (May 2025)
+- New York (May 2025)
 
 ## Installation
 
