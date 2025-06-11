@@ -73,8 +73,6 @@ function getCurrentStageIndex() {
     const running1Time = getTime("Running 1");
     const wallBallsTime = getTime("Wall Balls");
 
-    return 0;
-
     if (!running1Time || running1Time === "–") {
         return 0; // Start
     }
