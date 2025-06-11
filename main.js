@@ -6,7 +6,7 @@ import {
     getRunningTimes,
 } from "./progressLine.js";
 
-let currentRaceId = "newyork-May-2025";
+let currentRaceId = "chicago-June-2025";
 let { scale, mapPath, imageWidth, imageHeight, trackSvg, stations } =
     raceConfigs[currentRaceId];
 
@@ -72,6 +72,8 @@ function getCurrentStageIndex() {
 
     const running1Time = getTime("Running 1");
     const wallBallsTime = getTime("Wall Balls");
+
+    return 0;
 
     if (!running1Time || running1Time === "–") {
         return 0; // Start
