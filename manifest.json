@@ -1,7 +1,7 @@
 {
     "manifest_version": 3,
     "name": "Race Tracker",
-    "version": "1.1.5",
+    "version": "1.1.6",
     "description": "Visual tracker for Hyrox races",
     "action": {
         "default_popup": "popup.html",
