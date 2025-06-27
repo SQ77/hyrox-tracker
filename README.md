@@ -21,6 +21,7 @@
 - Bangkok (May 2025)
 - New York (May 2025)
 - Chicago (June 2025)
+- Singapore (June 2025)
 
 ## Installation
 
